@@ -1,3 +1,4 @@
 sacrebleu
 unbabel-comet
 transformers
+torch
