@@ -2,7 +2,7 @@
 #SBATCH --time=600 
 #SBATCH --job-name=nus-cs4248-project-mt
 
-# Description: This script sets up a conda environment for the project.
+# Description: This script sets up a conda environment in SoC cluster for the project.
 # It checks if Miniconda is installed, installs it if not, creates a conda
 # environment, and installs necessary packages.
 # Usage: sbatch env-setup-miniconda.sh
