@@ -30,9 +30,6 @@ def main():
         # device_map="auto"  # Enable automatic device mapping
     )
 
-    # Enable gradient checkpointing for memory efficiency
-    # model.gradient_checkpointing_enable()
-
     try:
         tokenizer = AutoTokenizer.from_pretrained(model_name, legacy=False)
     except TypeError:

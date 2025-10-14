@@ -13,4 +13,3 @@ training_args:
   ddp_find_unused_parameters: False  # Important for DDP
   report_to: "none"  # Disable wandb reporting
   # fp16: True  # Enable mixed precision training
-  # gradient_checkpointing: True
