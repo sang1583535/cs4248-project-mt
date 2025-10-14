@@ -2,7 +2,7 @@
 #SBATCH --time=600
 #SBATCH --job-name=nus-cs4248-project-mt
 #SBATCH --output=evaluation_mt_%j.out
-#SBATCH --gpus=1
+#SBATCH --gpus=2
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=64G
 
@@ -35,14 +35,16 @@ comet-score -s $TATOEBA_SRC \
     -t $TATOEBA_PRED \
     -r $TATOEBA_REF \
     --batch_size 256 \
-    --gpus 1 \
-    # --model $HOME/cs4248-project-mt/models/mt5-large-finetuned/checkpoint-310 
+    --gpus 2 \
+    --num_workers 16 \
+    --model_storage_path $HOME/cs4248-project-mt/models/mt5-large-finetuned/checkpoint-310 
 
 comet-score -s $WMT_REF \
     -t $WMT_PRED \
     -r $WMT_REF \
     --batch_size 256 \
-    --gpus 1 \
-    # --model $HOME/cs4248-project-mt/models/mt5-large-finetuned/checkpoint-310
+    --gpus 2 \
+    --num_workers 16 \
+    --model_storage_path $HOME/cs4248-project-mt/models/mt5-large-finetuned/checkpoint-310
 
 echo "Inference complete at $(date)"
