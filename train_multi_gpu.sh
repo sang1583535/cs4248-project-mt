@@ -35,7 +35,7 @@ print(torch.cuda.device_count())
 PY
 )
 
-echo "Detected $NUM_GPUS visible CUDA device(s) (MIG-aware)"
+echo "Detected $NUM_GPUS visible CUDA device(s)"
 
 # Run the training script
 echo "Training script started..."
