@@ -30,7 +30,20 @@ mkdir -p outputs
 # Or run inference on a file
 python3 inference.py \
 --model-path $HOME/cs4248-project-mt/models/mt5-large-finetuned/checkpoint-310 \
---input-file $HOME/cs4248-project-mt/dataset/wmttest2022.zh \
---output-file $HOME/cs4248-project-mt/outputs/wmttest2022_mt5_large.en
+--input-file $HOME/cs4248-project-mt/dataset/tatoeba.zh \
+--output-file $HOME/cs4248-project-mt/outputs/tatoeba_mt5_large.en
+
+# BLEU score 
+echo "Computing SACREBLEU score..."
+sacrebleu -tok 13a -w 2 $HOME/cs4248-project-mt/dataset/tatoeba.en < $HOME/cs4248-project-mt/outputs/tatoeba_mt5_large.en
+
+# COMET score
+echo "Computing COMET score..."
+comet-score -s $HOME/cs4248-project-mt/dataset/tatoeba.zh \
+    -t $HOME/cs4248-project-mt/outputs/tatoeba_mt5_large.en \
+    -r $HOME/cs4248-project-mt/dataset/tatoeba.en \
+    --batch_size 256 \
+    --gpus 1 \
+    # --model $HOME/cs4248-project-mt/models/mt5-large-finetuned/checkpoint-310
 
 echo "Inference complete at $(date)"
