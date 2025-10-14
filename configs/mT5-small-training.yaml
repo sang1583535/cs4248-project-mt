@@ -1,0 +1,2 @@
+training_dataset_path: /home/n/ntasang/cs4248-project-mt/tokenized_dataset/ALMA_Human_Parallel
+model_name: "google/mt5-small"
