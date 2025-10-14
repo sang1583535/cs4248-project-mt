@@ -12,8 +12,8 @@ from transformers import (
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Train mT5 Large Model")
-    parser.add_argument("--config", type=str, default="../configs/mt5-large-training.yaml", help="Path to config file")
+    parser = argparse.ArgumentParser(description="Train NMT Model")
+    parser.add_argument("--config", type=str, default="./configs/mT5-small-training.yaml", help="Path to config file")
     args = parser.parse_args()
 
     # Load configuration
