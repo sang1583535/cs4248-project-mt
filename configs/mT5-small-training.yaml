@@ -2,7 +2,7 @@ training_dataset_path: "./tokenized_dataset/ALMA_Human_Parallel"
 model_name: "google/mt5-small"
 training_args:
   output_dir: "./models/mt5-small-finetuned"
-  per_device_train_batch_size: 1
+  per_device_train_batch_size: 8
   gradient_accumulation_steps: 32
   num_train_epochs: 1
   logging_dir: "./logs"
@@ -13,4 +13,4 @@ training_args:
   gradient_checkpointing: True
   ddp_find_unused_parameters: False  # Important for DDP
   report_to: "none"  # Disable wandb reporting
-  # fp16: True  # Enable mixed precision training
+  fp16: True  # Enable mixed precision training
