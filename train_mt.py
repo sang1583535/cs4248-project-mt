@@ -38,28 +38,15 @@ def main():
     except TypeError:
         tokenizer = AutoTokenizer.from_pretrained(model_name)
 
-    training_args = Seq2SeqTrainingArguments(
-        output_dir="./mt5-large-finetuned",
-        per_device_train_batch_size=1,
-        gradient_accumulation_steps=32,
-        num_train_epochs=3,
-        logging_dir="./logs",
-        logging_steps=10,
-        save_steps=500,
-        save_total_limit=2,
-        predict_with_generate=False,
-        # fp16=True,  # Enable mixed precision training
-        gradient_checkpointing=True,
-        ddp_find_unused_parameters=False,  # Important for DDP
-        report_to="none",  # Disable wandb reporting
-    )
+    training_args = config['training_args']
+    seq2seq_training_args = Seq2SeqTrainingArguments(**training_args)
 
     # Define data collator
     data_collator = DataCollatorForSeq2Seq(tokenizer, model=model)
 
     trainer = Seq2SeqTrainer(
         model=model,
-        args=training_args,
+        args=seq2seq_training_args,
         train_dataset=train_dataset,
         processing_class=tokenizer,
         data_collator=data_collator,

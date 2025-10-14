@@ -1,2 +1,16 @@
-training_dataset_path: /home/n/ntasang/cs4248-project-mt/tokenized_dataset/ALMA_Human_Parallel
+training_dataset_path: "./tokenized_dataset/ALMA_Human_Parallel"
 model_name: "google/mt5-small"
+training_args:
+  output_dir: "./models/mt5-small-finetuned"
+  per_device_train_batch_size: 1
+  gradient_accumulation_steps: 32
+  num_train_epochs: 1
+  logging_dir: "./logs"
+  logging_steps: 10
+  save_steps: 500
+  save_total_limit: 2
+  predict_with_generate: False
+  gradient_checkpointing: True
+  ddp_find_unused_parameters: False  # Important for DDP
+  report_to: "none"  # Disable wandb reporting
+  # fp16: True  # Enable mixed precision training

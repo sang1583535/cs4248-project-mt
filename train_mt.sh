@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --time=600
 #SBATCH --job-name=nus-cs4248-project-mt
-#SBATCH --output=train.out
+#SBATCH --output=train_mt.out
 #SBATCH --gpus=2
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=4
