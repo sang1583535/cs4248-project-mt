@@ -2,7 +2,7 @@ from transformers import MT5ForConditionalGeneration, AutoTokenizer
 import torch
 import argparse
 
-def translate_text(model, tokenizer, text, max_length=512, skip_special_tokens=False):
+def translate_text(model, tokenizer, text, max_length=512, skip_special_tokens=True):
     inputs = tokenizer(text, return_tensors='pt').to('cuda')
     with torch.no_grad():
         outputs = model.generate(**inputs, max_length=max_length)
