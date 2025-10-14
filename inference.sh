@@ -18,6 +18,9 @@ echo "=== Inference Script ==="
 echo "Starting Inference at $(date)"
 echo "Running on host: $(hostname)"
 
+# Create directories
+mkdir -p outputs
+
 # Example usage of inference.py
 # Uncomment the following line to run inference with specified model and input text
 # python3 inference.py \
