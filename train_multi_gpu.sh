@@ -45,6 +45,7 @@ torchrun \
     --nproc_per_node=$NUM_GPUS \
     --master_port=29500 \
     train_mt.py \
-    --config $HOME/cs4248-project-mt/configs/training.yaml
+    --config $HOME/cs4248-project-mt/configs/training.yaml \
+    --multi-gpu
 
 echo "Training script executed. Check the output file for details."
