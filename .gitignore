@@ -2,3 +2,5 @@
 logs/
 *.out
 models/
+outputs/
+logs/

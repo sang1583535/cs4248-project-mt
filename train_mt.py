@@ -27,11 +27,11 @@ def main():
 
     model = AutoModelForSeq2SeqLM.from_pretrained(
         model_name,
-        use_cache=False,  # Disable cache during training
-        # dtype=torch.float16,  # Use float16 for reduced memory usage
         # device_map="auto"  # Enable automatic device mapping
     )
-    model.gradient_checkpointing_enable()
+
+    # Enable gradient checkpointing for memory efficiency
+    # model.gradient_checkpointing_enable()
 
     try:
         tokenizer = AutoTokenizer.from_pretrained(model_name, legacy=False)
