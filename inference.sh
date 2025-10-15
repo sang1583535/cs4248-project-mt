@@ -2,7 +2,7 @@
 #SBATCH --time=600
 #SBATCH --job-name=nus-cs4248-project-mt
 #SBATCH --output=inference_mt_%j.out
-#SBATCH --gpus=1 # implicitly requests 1 GPUs
+#SBATCH --gres=gpu:h100-96:1
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=64G
 
@@ -29,14 +29,14 @@ mkdir -p outputs
 # Or run inference on a file
 # Define paths. Adjust these paths as necessary.
 MODEL_PATH="$HOME/cs4248-project-mt/models/mt5-large-finetuned-single-gpu/checkpoint-19260"
-SRC_FILE="$HOME/cs4248-project-mt/dataset/tatoeba.zh"
-OUTPUT_FILE="$HOME/cs4248-project-mt/outputs/tatoeba_mt5_large.en"
-REF_FILE="$HOME/cs4248-project-mt/dataset/tatoeba.en"
+SRC_FILE="$HOME/cs4248-project-mt/dataset/wmttest2022.zh"
+OUTPUT_FILE="$HOME/cs4248-project-mt/outputs/wmttest2022_mt5_large.en"
+REF_FILE="$HOME/cs4248-project-mt/dataset/wmttest2022.AnnA.en"
 
 python3 inference.py \
 --model-path "$MODEL_PATH" \
 --input-file "$SRC_FILE" \
---output-file "$OUTPUT_FILE" 
+--output-file "$OUTPUT_FILE"
 
 # BLEU score 
 echo "Computing SACREBLEU score..."
