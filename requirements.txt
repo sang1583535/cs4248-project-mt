@@ -1,0 +1,6 @@
+sacrebleu
+unbabel-comet
+transformers
+torch
+sentencepiece
+accelerate

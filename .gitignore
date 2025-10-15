@@ -1,0 +1,6 @@
+.vscode
+logs/
+*.out
+models/
+outputs/
+logs/
