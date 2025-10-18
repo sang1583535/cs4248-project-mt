@@ -9,6 +9,7 @@ from transformers import (
     Seq2SeqTrainer,
     DataCollatorForSeq2Seq,
 )
+from peft import LoraConfig, get_peft_model
 
 
 def main():
@@ -33,6 +34,14 @@ def main():
         model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
     else:
         model = AutoModelForSeq2SeqLM.from_pretrained(model_name, device_map="auto")
+    
+    if config['use_lora']:
+        lora_config = LoraConfig(
+            r=8,
+            lora_alpha=8,
+            target_modules=["q", "v", "k", "o"]
+        )
+        model = get_peft_model(model, lora_config)
 
     try:
         tokenizer = AutoTokenizer.from_pretrained(model_name, legacy=False)
