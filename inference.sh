@@ -2,7 +2,7 @@
 #SBATCH --time=600
 #SBATCH --job-name=nus-cs4248-project-mt
 #SBATCH --output=inference_mt_%j.out
-#SBATCH --gres=gpu:h100-96:1
+#SBATCH --gres=gpu:h100-47:1
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=64G
 
@@ -37,6 +37,7 @@ python3 inference.py \
 --model-path "$MODEL_PATH" \
 --input-file "$SRC_FILE" \
 --output-file "$OUTPUT_FILE"
+# --force-generate # Uncomment this line if you want to force generation without caching
 
 # BLEU score 
 echo "Computing SACREBLEU score..."
@@ -50,6 +51,7 @@ comet-score -s $SRC_FILE \
     --batch_size 256 \
     --gpus 1 \
     --num_workers 16 \
+    --only_system \
     --model_storage_path $MODEL_PATH
 
 echo "Inference complete at $(date)"

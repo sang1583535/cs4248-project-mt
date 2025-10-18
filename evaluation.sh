@@ -39,6 +39,7 @@ comet-score -s $TATOEBA_SRC \
     --batch_size 256 \
     --gpus 1 \
     --num_workers 16 \
+    --only_system \
     --model_storage_path $MODEL_PATH 
 
 comet-score -s $WMT_SRC \
@@ -47,6 +48,7 @@ comet-score -s $WMT_SRC \
     --batch_size 256 \
     --gpus 1 \
     --num_workers 16 \
+    --only_system \
     --model_storage_path $MODEL_PATH
 
 echo "Inference complete at $(date)"
