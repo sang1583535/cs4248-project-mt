@@ -1,16 +1,11 @@
 training_dataset_paths: 
   - "./tokenized_dataset/ALMA_Human_Parallel"
-evaluation_dataset_paths:
-  - "./tokenized_dataset/Tatoeba"
-model_name: "google/mt5-large"
+model_name: "google/mt5-small"
 use_lora: True
 training_args:
-  output_dir: "./models/mt5-large-finetuned-lora"
-  eval_strategy: "epoch"
+  output_dir: "./models/mt5-small-finetuned"
   per_device_train_batch_size: 8
-  per_device_eval_batch_size: 1
   gradient_accumulation_steps: 1
-  eval_accumulation_steps: 1
   num_train_epochs: 10
   logging_dir: "./logs"
   logging_steps: 10
