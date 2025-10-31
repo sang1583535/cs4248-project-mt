@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH --time=600
+#SBATCH --time=1200
 #SBATCH --job-name=nus-cs4248-project-mt
-#SBATCH --output=train_mt_single_gpu_%j.out
+#SBATCH --output=./logs/train_mt_single_gpu_%j.out
 #SBATCH --gres=gpu:h100-96:1
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=64G
@@ -25,7 +25,7 @@ nvidia-smi --query-gpu=name,memory.total,memory.free --format=csv,noheader,nouni
 # Run the training script
 echo "Training script started..."
 
-python train_mt.py --config $HOME/cs4248-project-mt/configs/training.yaml
+python train_mt.py --config ./configs/training.yaml
 
 echo "Training script executed. Check the output file for details."
 

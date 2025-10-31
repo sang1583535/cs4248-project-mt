@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH --time=600
 #SBATCH --job-name=nus-cs4248-project-mt
-#SBATCH --output=inference_mt_%j.out
-#SBATCH --gres=gpu:h100-47:1
+#SBATCH --output=./logs/inference_mt_%j.out
+#SBATCH --gpus=1
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=64G
 
@@ -18,7 +18,7 @@ echo "Starting Inference at $(date)"
 echo "Running on host: $(hostname)"
 
 # Create directories
-mkdir -p outputs
+mkdir -p outputs logs
 
 # Example usage of inference.py
 # Uncomment the following line to run inference with specified model and input text
@@ -28,15 +28,14 @@ mkdir -p outputs
 
 # Or run inference on a file
 # Define paths. Adjust these paths as necessary.
-MODEL_PATH="$HOME/cs4248-project-mt/models/mt5-large-finetuned-single-gpu/checkpoint-19260"
-SRC_FILE="$HOME/cs4248-project-mt/dataset/wmttest2022.zh"
-OUTPUT_FILE="$HOME/cs4248-project-mt/outputs/wmttest2022_mt5_large.en"
-REF_FILE="$HOME/cs4248-project-mt/dataset/wmttest2022.AnnA.en"
+SRC_FILE="./dataset/tatoeba.zh"
+OUTPUT_FILE="./outputs/tatoeba_mt5_large.en"
+REF_FILE="./dataset/tatoeba.en"
 
 python3 inference.py \
 --model-path "$MODEL_PATH" \
 --input-file "$SRC_FILE" \
---output-file "$OUTPUT_FILE"
+--output-file "$OUTPUT_FILE" 
 # --force-generate # Uncomment this line if you want to force generation without caching
 
 # BLEU score 
@@ -51,7 +50,6 @@ comet-score -s $SRC_FILE \
     --batch_size 256 \
     --gpus 1 \
     --num_workers 16 \
-    --only_system \
-    --model_storage_path $MODEL_PATH
+    --only_system  
 
 echo "Inference complete at $(date)"
