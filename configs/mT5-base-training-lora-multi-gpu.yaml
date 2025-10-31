@@ -1,0 +1,23 @@
+training_dataset_paths: 
+  - "./tokenized_dataset/ALMA_Human_Parallel"
+evaluation_dataset_paths:
+  - "./tokenized_dataset/Tatoeba"
+model_name: "google/mt5-base"
+use_lora: True
+training_args:
+  output_dir: "./models/mt5-base-finetuned-lora"
+  eval_strategy: "epoch"
+  per_device_train_batch_size: 8
+  per_device_eval_batch_size: 1
+  gradient_accumulation_steps: 1
+  eval_accumulation_steps: 1
+  num_train_epochs: 10
+  logging_dir: "./logs"
+  logging_steps: 10
+  save_steps: 500
+  save_total_limit: 2
+  predict_with_generate: False
+  ddp_find_unused_parameters: False  # Important for DDP
+  report_to: "none"  # Disable wandb reporting
+  # fp16: True  # Enable mixed precision training
+  
