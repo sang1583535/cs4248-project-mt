@@ -2,7 +2,7 @@
 #SBATCH --time=600
 #SBATCH --job-name=nus-cs4248-project-mt
 #SBATCH --output=./logs/train_mt_multi_gpu_%j.out
-#SBATCH --gres=gpu:h100-96:2 # explicitly request 2 H100-96GB GPUs
+#SBATCH --gres=gpu:h100-47:2 # explicitly request 2 H100-96GB GPUs
 ## SBATCH --gpus=2 # implicitly requests 2 GPUs
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=16

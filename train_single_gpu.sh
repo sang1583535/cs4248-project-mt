@@ -2,7 +2,7 @@
 #SBATCH --time=1200
 #SBATCH --job-name=nus-cs4248-project-mt
 #SBATCH --output=./logs/train_mt_single_gpu_%j.out
-#SBATCH --gres=gpu:h100-96:1
+#SBATCH --gres=gpu:h100-47:1
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=64G
 
