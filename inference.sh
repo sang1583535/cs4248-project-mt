@@ -2,7 +2,7 @@
 #SBATCH --time=600
 #SBATCH --job-name=nus-cs4248-project-mt
 #SBATCH --output=./logs/inference_mt_%j.out
-#SBATCH --gpus=1
+#SBATCH --gres=gpu:h100-47:1
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=64G
 
@@ -28,9 +28,10 @@ mkdir -p outputs logs
 
 # Or run inference on a file
 # Define paths. Adjust these paths as necessary.
-SRC_FILE="./dataset/tatoeba.zh"
-OUTPUT_FILE="./outputs/tatoeba_mt5_large.en"
-REF_FILE="./dataset/tatoeba.en"
+SRC_FILE="./dataset/wmttest2022.zh"
+OUTPUT_FILE="./outputs/wmttest2022_mt5_large.en"
+REF_FILE="./dataset/wmttest2022.AnnA.en"
+MODEL_PATH="./models/mt5-large-finetuned-multi-gpu-alma-wmt22-1000-step/checkpoint-1000"
 
 python3 inference.py \
 --model-path "$MODEL_PATH" \
