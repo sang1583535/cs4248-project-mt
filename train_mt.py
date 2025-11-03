@@ -78,11 +78,7 @@ def main():
         model = AutoModelForSeq2SeqLM.from_pretrained(model_name, device_map="auto")
     
     if config['use_lora']:
-        lora_config = LoraConfig(
-            r=8,
-            lora_alpha=8,
-            target_modules=["q", "v", "k", "o"]
-        )
+        lora_config = LoraConfig(**config['lora_args'])
         model = get_peft_model(model, lora_config)
 
     try:
