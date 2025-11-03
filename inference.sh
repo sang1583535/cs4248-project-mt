@@ -29,7 +29,7 @@ mkdir -p outputs logs
 # Or run inference on a file
 # Define paths. Adjust these paths as necessary.
 SRC_FILE="./dataset/tatoeba.zh"
-OUTPUT_FILE="./outputs/tatoeba_mt5_large_alma_wmt_2epoch_0p5pct.en"
+OUTPUT_FILE="./outputs/tatoeba_mt5_large.en"
 REF_FILE="./dataset/tatoeba.en"
 MODEL_PATH="./models/mt5-large-finetuned-multi-gpu-alma-wmt22_0p5pct/checkpoint-2278"
 
