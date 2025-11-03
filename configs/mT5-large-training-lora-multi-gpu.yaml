@@ -4,6 +4,10 @@ evaluation_dataset_paths:
   - "./tokenized_dataset/Tatoeba"
 model_name: "google/mt5-large"
 use_lora: True
+lora_args:
+  r: 32
+  lora_alpha: 32
+  target_modules: ['q','k','v','o']
 training_args:
   output_dir: "./models/mt5-large-finetuned-lora"
   eval_strategy: "epoch"
