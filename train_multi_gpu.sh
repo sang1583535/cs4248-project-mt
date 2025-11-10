@@ -1,8 +1,8 @@
 #!/bin/bash
-#SBATCH --time=600
+#SBATCH --time=24:00:00
 #SBATCH --job-name=nus-cs4248-project-mt
 #SBATCH --output=./logs/train_mt_multi_gpu_%j.out
-#SBATCH --gres=gpu:h100-96:2 # explicitly request 2 H100-96GB GPUs
+#SBATCH --gres=gpu:h100-47:2 # explicitly request 2 H100-96GB GPUs
 ## SBATCH --gpus=2 # implicitly requests 2 GPUs
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=16
@@ -45,7 +45,7 @@ torchrun \
     --nproc_per_node=$NUM_GPUS \
     --master_port=29500 \
     train_mt.py \
-    --config ./configs/training.yaml \
+    --config ./configs/training_lora.yaml \
     --multi-gpu
 
 echo "Training script executed. Check the output file for details."

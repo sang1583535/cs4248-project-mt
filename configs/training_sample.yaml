@@ -1,0 +1,67 @@
+# define your configuration here, can copy other .yaml files and modify if needed
+# training_dataset_paths: 
+#   - "./tokenized_dataset/ALMA_Human_Parallel"
+#   - "./tokenized_dataset/WMT22_Train_Merged_0p00125pct"
+# evaluation_dataset_paths:
+#   - "./tokenized_dataset/Tatoeba"
+# model_name: "google/mt5-large"
+# use_lora: False
+# training_args:
+#   output_dir: "./models/mt5-large-finetuned-single-gpu-alma-wmt22_0p00125pct_3epoch"
+#   per_device_train_batch_size: 16 
+#   gradient_accumulation_steps: 16
+#   per_device_eval_batch_size: 16
+#   num_train_epochs: 3
+#   eval_strategy: "steps"
+#   logging_dir: "./logs"
+#   logging_steps: 50
+#   save_steps: 500
+#   save_total_limit: 2
+#   predict_with_generate: False
+#   # ddp_find_unused_parameters: False  # Important for DDP
+#   report_to: "wandb"  # Disable wandb reporting
+#   # bf16: True 
+#   # fp16: True  # Enable mixed precision training
+model_name: "google/mt5-large"
+use_lora: False
+
+training_dataset_paths:
+  - "./tokenized_dataset/ALMA_Human_Parallel"
+  - "./tokenized_dataset/WMT22_Train_Merged_0p00125pct"
+evaluation_dataset_paths:
+  - "./tokenized_dataset/Tatoeba"
+
+training_args:
+  output_dir: "./models/mt5-large-finetuned-1gpu-3epoch"
+  per_device_train_batch_size: 8            # fits 47GB with GC + bf16 @ 256/128 lengths
+  gradient_accumulation_steps: 8            # effective batch 64 (was 256 before)
+  per_device_eval_batch_size: 8
+
+  num_train_epochs: 10                      # more updates for small data (≈10k steps)
+  optim: "adafactor"                        # T5/mT5 friendly
+  learning_rate: 2.0e-4                     # 1e-4–3e-4 works well w/ Adafactor
+  lr_scheduler_type: "cosine"
+  warmup_ratio: 0.05
+  weight_decay: 0.01
+  label_smoothing_factor: 0.1
+  max_grad_norm: 1.0
+
+  eval_strategy: "steps"
+  eval_steps: 200
+  save_steps: 200
+  save_total_limit: 2
+  load_best_model_at_end: True
+  metric_for_best_model: "bleu"
+  greater_is_better: True
+
+  predict_with_generate: True               # evaluate with decoding, not logits
+  generation_max_length: 128
+  generation_num_beams: 4
+
+  gradient_checkpointing: True
+  bf16: True                                # H100: prefer bf16 over fp16
+  group_by_length: True                     # less padding → steadier loss, faster
+
+  logging_dir: "./logs"
+  logging_steps: 50
+  report_to: "wandb"

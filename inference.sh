@@ -28,10 +28,10 @@ mkdir -p outputs logs
 
 # Or run inference on a file
 # Define paths. Adjust these paths as necessary.
-SRC_FILE="./dataset/tatoeba.zh"
-OUTPUT_FILE="./outputs/tatoeba_mt5_large.en"
-REF_FILE="./dataset/tatoeba.en"
-MODEL_PATH="./models/mt5-large-finetuned-multi-gpu-alma-wmt22_0p5pct/checkpoint-2278"
+SRC_FILE="./dataset/wmttest2022.zh"
+OUTPUT_FILE="./outputs/wmttest2022_mt5-large-lora-finetuned-multi-gpu-alma-wmt_2M-1epoch-h100_47-2.en"
+REF_FILE="./dataset/wmttest2022.AnnA.en"
+MODEL_PATH="./models/mt5-large-lora-finetuned-multi-gpu-alma-wmt_2M-1epoch-h100_47-2/checkpoint-118000"
 
 python3 inference.py \
 --model-path "$MODEL_PATH" \

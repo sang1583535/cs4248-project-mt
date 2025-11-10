@@ -1,0 +1,43 @@
+# define your configuration here, can copy other .yaml files and modify if needed
+model_name: "google/mt5-large"
+use_lora: True
+lora_args:
+  r: 32
+  lora_alpha: 32
+  target_modules: ['q','k','v','o']
+training_dataset_paths:
+  - "./tokenized_dataset/ALMA_Human_Parallel"
+  - "./tokenized_dataset/WMT22_Train_Merged_5pct"
+evaluation_dataset_paths:
+  - "./tokenized_dataset/Tatoeba"
+
+training_args:
+  output_dir: "./models/mt5-large-lora-finetuned-multi-gpu-alma-wmt_2M-1epoch-h100_47-2"
+  per_device_train_batch_size: 8
+  gradient_accumulation_steps: 1  
+  per_device_eval_batch_size: 8
+
+  num_train_epochs: 1 # more updates for small data (≈10k steps)
+  optim: "adafactor" # T5/mT5 friendly
+  learning_rate: 2.0e-4 # 1e-4–3e-4 works well w/ Adafactor
+  lr_scheduler_type: "cosine"
+  warmup_ratio: 0.05
+  weight_decay: 0.01
+  label_smoothing_factor: 0.1
+  max_grad_norm: 1.0
+
+  eval_strategy: "steps"
+  eval_steps: 1000
+  save_steps: 1000
+  save_total_limit: 3
+  load_best_model_at_end: True
+  metric_for_best_model: "bleu"
+  
+  bf16: True # H100: prefer bf16 over fp16
+  group_by_length: True # less padding → steadier loss, faster
+  ddp_find_unused_parameters: False 
+
+  logging_dir: "./logs"
+  logging_steps: 250
+  report_to: "wandb"
+  run_name: "mt5-large-lora-finetuned-multi-gpu-alma-wmt_2M-1epoch-h100_47-2"
